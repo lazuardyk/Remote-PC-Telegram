@@ -2,7 +2,6 @@
 Control your PC with Telegram Bot
 
 ## Getting Started
-
 ### Prerequisites
 
 Required:
@@ -11,6 +10,7 @@ Required:
 - Telegram Bot Token
 
 ### Installing
+![how to Install](setup.gif)
 - Clone this repository
 - Set up a new Telegram bot talking to the ```BotFather```
 - Copy the token that given on BotFather
