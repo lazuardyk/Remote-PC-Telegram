@@ -1,5 +1,6 @@
 # Remote-PC-Telegram
-Control your PC with Telegram Bot
+Control your PC with Telegram Bot.
+You can browse any url, play youtube video, shutdown, reboot, and check your PC status.
 
 ## Getting Started
 ### Prerequisites
@@ -11,14 +12,14 @@ Required:
 
 ### Installing
 ![how to Install](setup.gif)
-- Clone this repository
+- Clone this repository.
 - Set up a new Telegram bot talking to the ```BotFather```
-- Copy the token that given on BotFather
-- Launch the setup.py with command: ```python setup.py``` or for windows user you can click 2x on this file
+- Copy the token that given on BotFather.
+- Launch the setup.py with command: ```python setup.py``` or for windows user you can click 2x on this file.
 - Complete all required fields and click  ```Submit your Input```
 - Click ```Install requirements files``` and wait until they done.
 - Run your Bot by clicking ```Run your Bot!```
-- You can start to chat your Bot by typing ```/start```
+- You can start to chat your Bot by typing ```/start``` and view the available commands.
 
 note:
 - <b>Don't close the running window if you want to use Bot</b>
