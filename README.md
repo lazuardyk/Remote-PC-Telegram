@@ -18,7 +18,7 @@ Required:
 - Complete all required fields and click  ```Submit your Input```
 - Click ```Install requirements files``` and wait until they done.
 - Run your Bot by clicking ```Run your Bot!```
-- See the instructions in the window for chat your Telegram Bot.
+- You can start to chat your Bot by typing ```/start```
 
 note:
 - <b>Don't close the running window if you want to use Bot</b>
