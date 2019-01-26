@@ -9,6 +9,7 @@ Required:
 
 - Python 3.5+
 - Telegram Bot Token
+- Internet Connection
 
 ### Installing
 ![how to Install](setup.gif)
