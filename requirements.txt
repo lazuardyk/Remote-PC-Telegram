@@ -1,0 +1,5 @@
+beautifulsoup4
+bs4
+distro
+psutil
+requests
