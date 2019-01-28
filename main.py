@@ -198,6 +198,9 @@ label.pack()
 url1 = 'https://api.telegram.org/bot'+token+'/'
 url = url1+'getUpdates'
 reqlast = requests.get(url).json()
-last_update = reqlast['result'][-1]['update_id']
+try:
+    last_update = reqlast['result'][-1]['update_id']
+except:
+    pass
 root.after(2, main)
 root.mainloop()
