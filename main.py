@@ -34,8 +34,6 @@ def search_youtube(query):
     search_results = re.findall(r'href=\"\/watch\?v=(.{11})', req)
     linkvideo = "http://www.youtube.com/watch?v="+search_results[0]
     return linkvideo
-    
-
 
 def shutdown(update):
     global lang, url1
