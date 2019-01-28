@@ -15,7 +15,7 @@ Required:
 ![how to Install](setup.gif)
 - Clone this repository.
 - Set up a new Telegram bot talking to the ```BotFather```
-- Copy the token that given on BotFather.
+- Copy the token that given on BotFather. Example: ```777353611:AAFWY7LHCCisrsWO3UzZLw_2BBXq68M8jD8``` (copy all)
 - Launch the setup.py with command: ```python setup.py``` or for windows user you can click 2x on this file.
 - Complete all required fields and click  ```Submit your Input```
 - Click ```Install requirements files``` and wait until they done.
