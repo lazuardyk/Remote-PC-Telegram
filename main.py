@@ -104,19 +104,6 @@ def status(update):
                     format(psutil.sensors_battery().percent, ".0f")) + "%"
     requests.get(url1+'sendMessage', params=dict(chat_id=update['message']['chat']['id'], text=text))
                 
-
-##def sleep(update):
-##    global lang, url1
-##    if lang == 'en':
-##        replied = 'Shutted down'
-##    else:
-##        replied = 'PC Berhasil Dimatikan.'
-##    if platform.system() == "Windows":
-##        subprocess.call('shutdown /s')
-##    else:
-##        subprocess.call('shutdown -h now')
-##    requests.get(url1+'sendMessage', params=dict(chat_id=update['message']['chat']['id'], text=replied))
-
 def main():
     global url1, url, last_update, token, lang, owner
     req = requests.get(url).json()
