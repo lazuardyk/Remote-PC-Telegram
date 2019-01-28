@@ -7,7 +7,7 @@ You can browse any url, play youtube video, shutdown, reboot, and check your PC 
 
 Required:
 
-- Python 3.5+
+- Python 3.5+ (for Windows user you must add Python to the PATH)
 - Telegram Bot Token
 - Internet Connection
 
