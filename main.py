@@ -9,24 +9,27 @@ import getpass
 import distro
 import psutil
 import platform
+import keyboard
 
 from bs4 import BeautifulSoup
 
+
 def command_info():
     if lang == 'en':
-        text = 'Command list:\n\n• Open browser\n'
-        text += '/youtube\n/facebook\n/twitter\n/github\n/reddit\n/url <link>\n\n'
+        text = 'Command list:\n\n• Open & close browser\n'
+        text += '/youtube\n/facebook\n/twitter\n/github\n/reddit\n/url <link>\n/close (for close any app like browsers)\n\n'
         text += 'note: For youtube you can command like this:\n'
-        text += '/youtube <search query>\nexample: /youtube ed sheeran - perfect\n\n'
+        text += '/youtube <search query>\nexample: /youtube ed sheeran - perfect\n/ytfull (for full screen)\n/ytnext (for next videos)\n\n'
         text += '• PC Settings\n/status\n/restart\n/shutdown'
     else:
         text = 'Ay, ay Kapten!\nBerikut perintah yang bisa dilakukan:\n\n'
-        text += '• Buka browser\n'
-        text += '/youtube\n/facebook\n/twitter\n/github\n/reddit\n/url <link>\n\n'
+        text += '• Buka & tutup browser\n'
+        text += '/youtube\n/facebook\n/twitter\n/github\n/reddit\n/url <link>\n/close (utk menutup app seperti browser)\n\n'
         text += 'note: Untuk youtube kamu bisa perintahkan seperti ini:\n'
-        text += '/youtube <judul video>\ncontoh: /youtube ed sheeran - perfect\n\n'
+        text += '/youtube <judul video>\ncontoh: /youtube ed sheeran - perfect\n/ytfull (utk fullscreen)\n/ytnext (utk video berikutnya)\n\n'
         text += '• Pengaturan PC\n/status\n/restart\n/shutdown'
     return text
+
 
 def search_youtube(query):
     url = 'http://www.youtube.com/results?search_query=' + query
@@ -34,6 +37,7 @@ def search_youtube(query):
     search_results = re.findall(r'href=\"\/watch\?v=(.{11})', req)
     linkvideo = "http://www.youtube.com/watch?v="+search_results[0]
     return linkvideo
+
 
 def shutdown(update):
     global lang, url1
@@ -45,7 +49,9 @@ def shutdown(update):
         subprocess.call('shutdown /s')
     else:
         subprocess.call('shutdown -h now')
-    requests.get(url1+'sendMessage', params=dict(chat_id=update['message']['chat']['id'], text=replied))
+    requests.get(url1+'sendMessage',
+                 params=dict(chat_id=update['message']['chat']['id'], text=replied))
+
 
 def restart(update):
     global lang, url1
@@ -57,7 +63,8 @@ def restart(update):
         subprocess.call('shutdown /r')
     else:
         subprocess.call('reboot')
-    requests.get(url1+'sendMessage', params=dict(chat_id=update['message']['chat']['id'], text=replied))
+    requests.get(url1+'sendMessage',
+                 params=dict(chat_id=update['message']['chat']['id'], text=replied))
 
 
 def status(update):
@@ -77,7 +84,7 @@ def status(update):
             if psutil.sensors_battery().power_plugged is True:
                 text += ("\nBattery: ") + str(
                     format(psutil.sensors_battery().percent, ".0f")) \
-                        + ("% | Charging")
+                    + ("% | Charging")
             else:
                 text += ("\nBattery: ") + str(
                     format(psutil.sensors_battery().percent, ".0f")) + "%"
@@ -88,7 +95,8 @@ def status(update):
         if platform.system() == "Windows":
             text += ("\nSistem operasi: Windows ") + platform.win32_ver()[0]
         else:
-            text += ("\nSistem operasi: ") + " ".join(distro.linux_distribution()[:2])
+            text += ("\nSistem operasi: ") + \
+                " ".join(distro.linux_distribution()[:2])
         text += ("\nCPU: ") + str(psutil.cpu_percent()) + "%"
         text += ("\nMemory: ") + str(
             int(psutil.virtual_memory().percent)) + "%"
@@ -96,12 +104,14 @@ def status(update):
             if psutil.sensors_battery().power_plugged is True:
                 text += ("\nBaterai: ") + str(
                     format(psutil.sensors_battery().percent, ".0f")) \
-                        + ("% | Charging")
+                    + ("% | Charging")
             else:
                 text += ("\nBaterai: ") + str(
                     format(psutil.sensors_battery().percent, ".0f")) + "%"
-    requests.get(url1+'sendMessage', params=dict(chat_id=update['message']['chat']['id'], text=text))
-                
+    requests.get(url1+'sendMessage',
+                 params=dict(chat_id=update['message']['chat']['id'], text=text))
+
+
 def main():
     global url1, url, last_update, token, lang, owner
     req = requests.get(url).json()
@@ -119,22 +129,32 @@ def main():
                         query = ''
                         lst = message[1:]
                         for x in lst:
-                            query+=x+' '
+                            query += x+' '
                         webbrowser.open(search_youtube(query))
-                        requests.get(url1+'sendMessage', params=dict(chat_id=update['message']['chat']['id'], text=sukses))
+                        requests.get(
+                            url1+'sendMessage', params=dict(chat_id=update['message']['chat']['id'], text=sukses))
                     else:
                         webbrowser.open('https://youtube.com')
+                elif update['message']['text'].startswith('/close'):
+                    keyboard.send('alt+f4')
+                elif update['message']['text'].startswith('/ytfull'):
+                    keyboard.send('f')
+                elif update['message']['text'].startswith('/ytnext'):
+                    keyboard.send('shift+n')
                 elif update['message']['text'].startswith('/url'):
                     splited = update['message']['text'].split()
                     if len(splited) > 1:
                         link = splited[1]
                         webbrowser.open(link)
-                        requests.get(url1+'sendMessage', params=dict(chat_id=update['message']['chat']['id'], text=sukses))
+                        requests.get(
+                            url1+'sendMessage', params=dict(chat_id=update['message']['chat']['id'], text=sukses))
                     else:
                         if lang == 'en':
-                            requests.get(url1+'sendMessage', params=dict(chat_id=update['message']['chat']['id'], text='Command /url need <link>\nexample: /url https://stackoverflow.com/'))
+                            requests.get(url1+'sendMessage', params=dict(
+                                chat_id=update['message']['chat']['id'], text='Command /url need <link>\nexample: /url https://stackoverflow.com/'))
                         else:
-                            requests.get(url1+'sendMessage', params=dict(chat_id=update['message']['chat']['id'], text='Perintah /url memerlukan link\ncontoh: /url https://stackoverflow.com/'))
+                            requests.get(url1+'sendMessage', params=dict(
+                                chat_id=update['message']['chat']['id'], text='Perintah /url memerlukan link\ncontoh: /url https://stackoverflow.com/'))
                 elif update['message']['text'].startswith('/twitter'):
                     webbrowser.open('https://twitter.com')
                 elif update['message']['text'].startswith('/facebook'):
@@ -148,11 +168,13 @@ def main():
                 elif update['message']['text'].startswith('/status'):
                     status(update)
                 elif update['message']['text'] == 'hi' or 'halo' or 'Halo' or 'Hi' or '/start':
-                    requests.get(url1+'sendMessage', params=dict(chat_id=update['message']['chat']['id'], text=command_info()))
+                    requests.get(url1+'sendMessage', params=dict(
+                        chat_id=update['message']['chat']['id'], text=command_info()))
                 else:
                     pass
-                
-    root.after(2,main)
+
+    root.after(2, main)
+
 
 config = configparser.ConfigParser()
 config.sections()
@@ -164,7 +186,7 @@ last_update = 0
 root = tkinter.Tk()
 root.title("Running")
 root.geometry("500x100")
-if lang =='en':
+if lang == 'en':
     teks = """
     Bot is Running
     You can type "/start" or "hi" to the Bot to get your command list

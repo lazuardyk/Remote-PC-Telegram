@@ -3,3 +3,4 @@ bs4
 distro
 psutil
 requests
+keyboard
