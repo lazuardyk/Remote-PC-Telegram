@@ -1,6 +1,7 @@
 # Remote-PC-Telegram
 Control your PC with Telegram Bot.
-You can browse any url, play youtube video, shutdown, reboot, and check your PC status.
+You can browse any url, play youtube video, shutdown, reboot, and check your PC status.<br><br>
+<img src="features.jpg" width="300" height="500">
 
 ## Getting Started
 ### Prerequisites
