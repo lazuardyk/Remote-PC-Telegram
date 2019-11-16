@@ -167,6 +167,8 @@ def main():
                     shutdown(update)
                 elif update['message']['text'].startswith('/status'):
                     status(update)
+                elif update['message']['text'].startswith('/restart'):
+                    restart(update)
                 elif update['message']['text'] == 'hi' or 'halo' or 'Halo' or 'Hi' or '/start':
                     requests.get(url1+'sendMessage', params=dict(
                         chat_id=update['message']['chat']['id'], text=command_info()))
