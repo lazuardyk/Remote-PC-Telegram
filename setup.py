@@ -41,7 +41,7 @@ label = tkinter.Label(root, text="\n\nControl your PC with Telegram Bot\nPlease 
 token = tkinter.Entry(root, width=50)
 labol = tkinter.Label(root, text="Owner's username (to prevent other users to use it) without @:")
 owner = tkinter.Entry(root)
-labul = tkinter.Label(root, text="Type your language (en/id):")
+labul = tkinter.Label(root, text="Type your language (en/id/ru):")
 lang = tkinter.Entry(root)
 tombolsubmit = tkinter.Button(root, text="Submit your Input", command=submit)
 label3 = tkinter.Label(root, text="")
