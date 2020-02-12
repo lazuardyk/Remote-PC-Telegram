@@ -21,6 +21,12 @@ def command_info():
         text += 'note: For youtube you can command like this:\n'
         text += '/youtube <search query>\nexample: /youtube ed sheeran - perfect\n/ytfull (for full screen)\n/ytnext (for next videos)\n\n'
         text += '• PC Settings\n/status\n/restart\n/shutdown'
+    elif lang == 'ru':
+        text = 'Список комманд:\n\n• Браузерные:\n'
+        text += '/vk\n/twitter\n/github\n/reddit\n/url <ссылка>\n/close (приложение)\n\n'
+        text += '• Команды для ютуба:\n'
+        text += '/youtube(просто открыть youtube)\n/youtube <поисковый запрос>\n/ytfull (открыть на весь экран)\n/ytnext (следующее видео)\n\n'
+        text += '• Другие\n/status\n/restart\n/shutdown'
     else:
         text = 'Ay, ay Kapten!\nBerikut perintah yang bisa dilakukan:\n\n'
         text += '• Buka & tutup browser\n'
@@ -43,6 +49,8 @@ def shutdown(update):
     global lang, url1
     if lang == 'en':
         replied = 'Shutted down'
+    elif lang == 'ru':
+        replied = 'Выключаюсь'
     else:
         replied = 'PC Berhasil Dimatikan.'
     if platform.system() == "Windows":
@@ -57,6 +65,8 @@ def restart(update):
     global lang, url1
     if lang == 'en':
         replied = 'Rebooted'
+    elif lang == 'ru':
+        replied = 'Перезагружаюсь'
     else:
         replied = 'PC Berhasil Direstart.'
     if platform.system() == "Windows":
@@ -88,6 +98,25 @@ def status(update):
             else:
                 text += ("\nBattery: ") + str(
                     format(psutil.sensors_battery().percent, ".0f")) + "%"
+    elif lang == 'ru':
+        text = ""
+        text += "Имя компа: " + socket.gethostname()
+        text += "\nПользователь: " + getpass.getuser()
+        if platform.system() == "Windows":
+            text += "\nOS: Windows " + platform.win32_ver()[0]
+        else:
+            text += "\nOS: " + " ".join(distro.linux_distribution()[:2])
+        text += "\nCPU: " + str(psutil.cpu_percent()) + "%"
+        text += "\nОЗУ: " + str(
+            int(psutil.virtual_memory().percent)) + "%"
+        if psutil.sensors_battery():
+            if psutil.sensors_battery().power_plugged is True:
+            text += "\nЗаряд: " + str(
+                format(psutil.sensors_battery().percent, ".0f")) \
+                    + "% | Заряжается"
+            else:
+                text += "\nБатарея: " + str(
+                    format(psutil.sensors_battery().percent, ".0f")) + "%"
     else:
         text = ""
         text += ("Nama PC: ") + socket.gethostname()
@@ -117,6 +146,8 @@ def main():
     req = requests.get(url).json()
     if lang == 'en':
         sukses = 'Success!'
+    elif lang == 'ru':
+        sukses = 'Успех'
     else:
         sukses = 'Sukses bos!'
     for update in req['result']:
@@ -155,6 +186,8 @@ def main():
                         else:
                             requests.get(url1+'sendMessage', params=dict(
                                 chat_id=update['message']['chat']['id'], text='Perintah /url memerlukan link\ncontoh: /url https://stackoverflow.com/'))
+                elif update['message']['text'].startswith('/vk'):
+                    webbrowser.open('https://vk.com')
                 elif update['message']['text'].startswith('/twitter'):
                     webbrowser.open('https://twitter.com')
                 elif update['message']['text'].startswith('/facebook'):
@@ -194,6 +227,12 @@ if lang == 'en':
     You can type "/start" or "hi" to the Bot to get your command list
 
     note: Don't close this window if you want to use your bot!
+    """
+elif lang == 'ru':
+    teks = """
+    Бот запущен!
+    Вы можете написать "/start" или "hi" боту чтобы получить список комманд.
+    Пожалуйста, не закрывайте это окно чтобы бот работал.
     """
 else:
     teks = """
