@@ -111,9 +111,9 @@ def status(update):
             int(psutil.virtual_memory().percent)) + "%"
         if psutil.sensors_battery():
             if psutil.sensors_battery().power_plugged is True:
-            text += "\nЗаряд: " + str(
-                format(psutil.sensors_battery().percent, ".0f")) \
-                    + "% | Заряжается"
+                text += "\nЗаряд: " + str(
+                    format(psutil.sensors_battery().percent, ".0f")) \
+                        + "% | Заряжается"
             else:
                 text += "\nБатарея: " + str(
                     format(psutil.sensors_battery().percent, ".0f")) + "%"
